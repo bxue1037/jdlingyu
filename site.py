@@ -15,7 +15,7 @@ def jdlingyu():
     import requests,html,re,os,threading,sys,logging,argparse
 
     # argparse
-    parser=argparse.ArgumentParser(description='parse pictures from http://www.jdlingyu.moe')
+    parser=argparse.ArgumentParser(description='parse pictures from http://www.jdlingyu.mobi')
     parser.add_argument('-o', '--output_path', help='Specify file save path', default=os.path.join(os.path.abspath('.'), 'download'))
     parser.add_argument('-j', '--job', help='set threads num, default 5 threads', type=int, default=5)
     parser.add_argument('-l', '--log', help='save log to file', action='store_true')
@@ -80,19 +80,19 @@ def jdlingyu():
 
     # 排除无关图片
     ## 样本1
-    r_exclude_1=requests.get('http://www.jdlingyu.moe/28721/', headers=headers)
+    r_exclude_1=requests.get('http://www.jdlingyu.mobi/28721/', headers=headers)
     r_exclude_1.encoding='utf-8'
     data_html_exclude_1=r_exclude_1.text
     r_exclude_1.close()
-    re_exclude_1_all_pic1=re.compile(r'http://www.jdlingyu.moe/wp-content/uploads/\d{4}/\d{2}/\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}(?:-\d+?)?\.(?:jpg|jpeg|png|gif)')
+    re_exclude_1_all_pic1=re.compile(r'http://www.jdlingyu.mobi/wp-content/uploads/\d{4}/\d{2}/\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}(?:-\d+?)?\.(?:jpg|jpeg|png|gif)')
     re_exclude_1_all_pic2=re.compile(r'http://ww\d.sinaimg.cn/large/(.*?\.(?:jpg|jpeg|png|gif))')
     re_exclude_1_all_pic=re.findall(re_exclude_1_all_pic1, data_html_exclude_1) + re.findall(re_exclude_1_all_pic2, data_html_exclude_1)
     ## 样本2
-    r_exclude_2=requests.get('http://www.jdlingyu.moe/16289/', headers=headers)
+    r_exclude_2=requests.get('http://www.jdlingyu.mobi/16289/', headers=headers)
     r_exclude_2.encoding='utf-8'
     data_html_exclude_2=r_exclude_2.text
     r_exclude_2.close()
-    re_exclude_2_all_pic1=re.compile(r'http://www.jdlingyu.moe/wp-content/uploads/\d{4}/\d{2}/\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}(?:-\d+?)?\.(?:jpg|jpeg|png|gif)')
+    re_exclude_2_all_pic1=re.compile(r'http://www.jdlingyu.mobi/wp-content/uploads/\d{4}/\d{2}/\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}(?:-\d+?)?\.(?:jpg|jpeg|png|gif)')
     re_exclude_2_all_pic2=re.compile(r'http://ww\d.sinaimg.cn/large/(.*?\.(?:jpg|jpeg|png|gif))')
     re_exclude_2_all_pic=re.findall(re_exclude_2_all_pic1, data_html_exclude_2) + re.findall(re_exclude_2_all_pic2, data_html_exclude_2)
     ## 获取无关图片url
@@ -106,12 +106,12 @@ def jdlingyu():
         r_page.encoding='utf-8'
         data_page=r_page.text
         r_page.close()
-        re_themes=re.compile(r'http://www.jdlingyu.moe/\d+/')
+        re_themes=re.compile(r'http://www.jdlingyu.mobi/\d+/')
         themes=re.findall(re_themes,data_page)
         if page_url == index_url:
             page_num=1
         else:
-            re_page_num=re.compile(r'http://www.jdlingyu.moe/page/(\d+)/')
+            re_page_num=re.compile(r'http://www.jdlingyu.mobi/page/(\d+)/')
             page_num=re.search(re_page_num,page_url).group(1)
         page_path=os.path.join(main_path,'page%s' % page_num)
         if not os.path.isdir(page_path):
@@ -129,7 +129,7 @@ def jdlingyu():
                 title_path=os.path.join(page_path,title)
                 if not os.path.isdir(title_path):   
                     os.mkdir(title_path)
-                re_pic1=re.compile(r'(http://www.jdlingyu.moe/wp-content/uploads/\d{4}/\d{2}/(\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}(?:-\d+?)?\.(?:jpg|jpeg|png|gif)))')
+                re_pic1=re.compile(r'(http://www.jdlingyu.mobi/wp-content/uploads/\d{4}/\d{2}/(\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}(?:-\d+?)?\.(?:jpg|jpeg|png|gif)))')
                 re_pic2=re.compile(r'(http://ww\d.sinaimg.cn/large/(.*?\.(?:jpg|jpeg|png|gif)))')
                 pic1=re.findall(re_pic1,data)
                 pic2=re.findall(re_pic2,data)
@@ -160,14 +160,14 @@ def jdlingyu():
                 thr.join()
     
     # 获取page列表
-    index_url='http://www.jdlingyu.moe'
+    index_url='http://www.jdlingyu.mobi'
     r_index=requests.get(index_url,headers=headers)
     r_index.encoding='utf-8'
     data_index=r_index.text
     r_index.close()
-    re_page_num=re.compile(r'http://www.jdlingyu.moe/page/(\d+)/')
+    re_page_num=re.compile(r'http://www.jdlingyu.mobi/page/(\d+)/')
     page_num_max=max(list(map(lambda x:int(x),re.findall(re_page_num,data_index))))
-    other_url=['http://www.jdlingyu.moe/page/%s/' % x for x in range(2,page_num_max+1)]
+    other_url=['http://www.jdlingyu.mobi/page/%s/' % x for x in range(2,page_num_max+1)]
     other_url.insert(0,index_url)
     pages_url=other_url
     
