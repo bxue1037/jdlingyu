@@ -85,7 +85,7 @@ def jdlingyu():
     data_html_exclude_1=r_exclude_1.text
     r_exclude_1.close()
     re_exclude_1_all_pic1=re.compile(r'http://www.jdlingyu.mobi/wp-content/uploads/\d{4}/\d{2}/\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}(?:-\d+?)?\.(?:jpg|jpeg|png|gif)')
-    re_exclude_1_all_pic2=re.compile(r'http://ww\d.sinaimg.cn/large/(.*?\.(?:jpg|jpeg|png|gif))')
+    re_exclude_1_all_pic2=re.compile(r'http://wx\d.sinaimg.cn/large/(.*?\.(?:jpg|jpeg|png|gif))')
     re_exclude_1_all_pic=re.findall(re_exclude_1_all_pic1, data_html_exclude_1) + re.findall(re_exclude_1_all_pic2, data_html_exclude_1)
     ## 样本2
     r_exclude_2=requests.get('http://www.jdlingyu.mobi/16289/', headers=headers)
@@ -93,7 +93,7 @@ def jdlingyu():
     data_html_exclude_2=r_exclude_2.text
     r_exclude_2.close()
     re_exclude_2_all_pic1=re.compile(r'http://www.jdlingyu.mobi/wp-content/uploads/\d{4}/\d{2}/\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}(?:-\d+?)?\.(?:jpg|jpeg|png|gif)')
-    re_exclude_2_all_pic2=re.compile(r'http://ww\d.sinaimg.cn/large/(.*?\.(?:jpg|jpeg|png|gif))')
+    re_exclude_2_all_pic2=re.compile(r'http://wx\d.sinaimg.cn/large/(.*?\.(?:jpg|jpeg|png|gif))')
     re_exclude_2_all_pic=re.findall(re_exclude_2_all_pic1, data_html_exclude_2) + re.findall(re_exclude_2_all_pic2, data_html_exclude_2)
     ## 获取无关图片url
     exclude_1=set(re_exclude_1_all_pic)
@@ -130,7 +130,7 @@ def jdlingyu():
                 if not os.path.isdir(title_path):   
                     os.mkdir(title_path)
                 re_pic1=re.compile(r'(http://www.jdlingyu.mobi/wp-content/uploads/\d{4}/\d{2}/(\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}(?:-\d+?)?\.(?:jpg|jpeg|png|gif)))')
-                re_pic2=re.compile(r'(http://ww\d.sinaimg.cn/large/(.*?\.(?:jpg|jpeg|png|gif)))')
+                re_pic2=re.compile(r'(http://wx\d.sinaimg.cn/large/(.*?\.(?:jpg|jpeg|png|gif)))')
                 pic1=re.findall(re_pic1,data)
                 pic2=re.findall(re_pic2,data)
                 pic=set(pic1) | set(pic2)
