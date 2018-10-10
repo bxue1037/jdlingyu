@@ -111,7 +111,7 @@ def jdlingyu():
         if page_url == index_url:
             page_num=1
         else:
-            re_page_num=re.compile(r'http://www.jdlingyu.mobi/page/(\d+)/')
+            re_page_num=re.compile(r'http://www.jdlingyu.mobi/(\d+)/')
             page_num=re.search(re_page_num,page_url).group(1)
         page_path=os.path.join(main_path,'page%s' % page_num)
         if not os.path.isdir(page_path):
@@ -165,9 +165,9 @@ def jdlingyu():
     r_index.encoding='utf-8'
     data_index=r_index.text
     r_index.close()
-    re_page_num=re.compile(r'http://www.jdlingyu.mobi/page/(\d+)/')
+    re_page_num=re.compile(r'http://www.jdlingyu.mobi/(\d+)/')
     page_num_max=max(list(map(lambda x:int(x),re.findall(re_page_num,data_index))))
-    other_url=['http://www.jdlingyu.mobi/page/%s/' % x for x in range(2,page_num_max+1)]
+    other_url=['http://www.jdlingyu.mobi/%s/' % x for x in range(2,page_num_max+1)]
     other_url.insert(0,index_url)
     pages_url=other_url
     
